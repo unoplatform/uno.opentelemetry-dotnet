@@ -4,7 +4,7 @@
 
 This repository is a WebAssembly-focused fork of the upstream
 [open-telemetry/opentelemetry-dotnet](https://github.com/open-telemetry/opentelemetry-dotnet)
-project, tailored for Uno Platform WebAssembly scenarios. 
+project, tailored for Uno Platform WebAssembly scenarios.
 
 For canonical
 guidance (or to compare changes), review the
