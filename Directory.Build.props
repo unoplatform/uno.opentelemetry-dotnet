@@ -2,5 +2,7 @@
   <PropertyGroup>
     <ArtifactsPath>$([System.IO.Path]::Combine('$(MSBuildThisFileDirectory)', 'artifacts'))</ArtifactsPath>
     <UseArtifactsOutput>true</UseArtifactsOutput>
+    <!-- Ensure MinVer produces a sane version even when git tags are unavailable (e.g., in shallow clones). -->
+    <MinVerFallbackVersion Condition="'$(MinVerFallbackVersion)' == ''">1.11.0-uno.0</MinVerFallbackVersion>
   </PropertyGroup>
 </Project>

@@ -1,8 +1,6 @@
 // Copyright The OpenTelemetry Authors
 // SPDX-License-Identifier: Apache-2.0
 
-using System.Threading;
-
 namespace OpenTelemetry.Internal;
 
 /// <summary>
@@ -19,6 +17,8 @@ internal static class ThreadingHelper
     /// disabled. Returns an <see cref="IDisposable"/> that restores the
     /// previous value when disposed.
     /// </summary>
+    /// <param name="isThreadingDisabled">Set to <see langword="true"/> to force threading off; otherwise <see langword="false"/>.</param>
+    /// <returns>An <see cref="IDisposable"/> scope that reverts the override on dispose.</returns>
     internal static IDisposable BeginThreadingOverride(bool isThreadingDisabled)
     {
         var scope = new ThreadingOverrideScope(ThreadingDisabledOverride.Value);
@@ -30,6 +30,7 @@ internal static class ThreadingHelper
     /// Determines whether threading should be considered unavailable for the
     /// current context, honoring any scoped overrides.
     /// </summary>
+    /// <returns><see langword="true"/> when threading is disabled for the current context; otherwise <see langword="false"/>.</returns>
     internal static bool IsThreadingDisabled()
     {
         if (ThreadingDisabledOverride.Value.HasValue)

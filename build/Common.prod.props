@@ -11,6 +11,8 @@
   </PropertyGroup>
 
   <PropertyGroup Label="PackageProperties">
+    <UnoPackagePrefix Condition="'$(UnoPackagePrefix)' == ''">uno.</UnoPackagePrefix>
+    <PackageId Condition="'$(PackageId)' == '' and '$(MSBuildProjectName)' != ''">$(UnoPackagePrefix)$(MSBuildProjectName)</PackageId>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/open-telemetry/opentelemetry-dotnet</RepositoryUrl>
     <PackageTags>Observability;OpenTelemetry;Monitoring;Telemetry;Tracing;Metrics;Logging</PackageTags>
