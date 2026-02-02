@@ -6,7 +6,13 @@
   </PropertyGroup>
 
   <PropertyGroup Label="BuildFlags">
-    <ExposeExperimentalFeatures Condition="'$(ExposeExperimentalFeatures)' == ''">true</ExposeExperimentalFeatures>
+    <!--
+        Default to ExposeExperimentalFeatures=false for ABI compatibility with official NuGet packages.
+        This ensures that when tests reference external packages (like OpenTelemetry.Instrumentation.Http)
+        which depend on official OpenTelemetry.Api from nuget.org, there's no method accessibility
+        mismatch (e.g., TryCreateLogger being protected in local vs internal in NuGet packages).
+    -->
+    <ExposeExperimentalFeatures Condition="'$(ExposeExperimentalFeatures)' == ''">false</ExposeExperimentalFeatures>
     <EnablePackageValidation Condition="'$(EnablePackageValidation)' == ''">false</EnablePackageValidation>
   </PropertyGroup>
 
