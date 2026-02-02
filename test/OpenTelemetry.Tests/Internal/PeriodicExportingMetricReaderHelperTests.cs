@@ -11,16 +11,25 @@ namespace OpenTelemetry.Internal.Tests;
 
 public sealed class PeriodicExportingMetricReaderHelperTests : IDisposable
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PeriodicExportingMetricReaderHelperTests"/> class.
+    /// </summary>
     public PeriodicExportingMetricReaderHelperTests()
     {
         ClearEnvVars();
     }
 
+    /// <summary>
+    /// Disposes the test fixture by clearing environment variables.
+    /// </summary>
     public void Dispose()
     {
         ClearEnvVars();
     }
 
+    /// <summary>
+    /// Validates that the helper uses built-in defaults when no overrides exist.
+    /// </summary>
     [Fact]
     public void CreatePeriodicExportingMetricReader_Defaults()
     {
@@ -33,6 +42,9 @@ public sealed class PeriodicExportingMetricReaderHelperTests : IDisposable
         Assert.Equal(MetricReaderTemporalityPreference.Cumulative, reader.TemporalityPreference);
     }
 
+    /// <summary>
+    /// Ensures defaults also apply when threading overrides use tasks.
+    /// </summary>
     [Fact]
     public void CreatePeriodicExportingMetricReader_Defaults_WithTask()
     {
@@ -47,6 +59,9 @@ public sealed class PeriodicExportingMetricReaderHelperTests : IDisposable
         Assert.Equal(MetricReaderTemporalityPreference.Cumulative, reader.TemporalityPreference);
     }
 
+    /// <summary>
+    /// Confirms the temporality preference is honored when specified via options.
+    /// </summary>
     [Fact]
     public void CreatePeriodicExportingMetricReader_TemporalityPreference_FromOptions()
     {
@@ -59,6 +74,9 @@ public sealed class PeriodicExportingMetricReaderHelperTests : IDisposable
         Assert.Equal(value, reader.TemporalityPreference);
     }
 
+    /// <summary>
+    /// Verifies export interval options override environment variables.
+    /// </summary>
     [Fact]
     public void CreatePeriodicExportingMetricReader_ExportIntervalMilliseconds_FromOptions()
     {
@@ -75,6 +93,9 @@ public sealed class PeriodicExportingMetricReaderHelperTests : IDisposable
         Assert.Equal(value, reader.ExportIntervalMilliseconds);
     }
 
+    /// <summary>
+    /// Verifies export timeout options override environment variables.
+    /// </summary>
     [Fact]
     public void CreatePeriodicExportingMetricReader_ExportTimeoutMilliseconds_FromOptions()
     {
@@ -91,6 +112,9 @@ public sealed class PeriodicExportingMetricReaderHelperTests : IDisposable
         Assert.Equal(value, reader.ExportTimeoutMilliseconds);
     }
 
+    /// <summary>
+    /// Confirms the export interval pulls from environment variables when no options exist.
+    /// </summary>
     [Fact]
     public void CreatePeriodicExportingMetricReader_ExportIntervalMilliseconds_FromEnvVar()
     {
@@ -101,6 +125,9 @@ public sealed class PeriodicExportingMetricReaderHelperTests : IDisposable
         Assert.Equal(value, reader.ExportIntervalMilliseconds);
     }
 
+    /// <summary>
+    /// Confirms the export timeout pulls from environment variables when no options exist.
+    /// </summary>
     [Fact]
     public void CreatePeriodicExportingMetricReader_ExportTimeoutMilliseconds_FromEnvVar()
     {
@@ -111,6 +138,9 @@ public sealed class PeriodicExportingMetricReaderHelperTests : IDisposable
         Assert.Equal(value, reader.ExportTimeoutMilliseconds);
     }
 
+    /// <summary>
+    /// Verifies configuration-based options load expected values.
+    /// </summary>
     [Fact]
     public void CreatePeriodicExportingMetricReader_FromIConfiguration()
     {
@@ -130,6 +160,9 @@ public sealed class PeriodicExportingMetricReaderHelperTests : IDisposable
         Assert.Equal(19, options.ExportTimeoutMilliseconds);
     }
 
+    /// <summary>
+    /// Makes sure the environment variable names match the specification.
+    /// </summary>
     [Fact]
     public void EnvironmentVariableNames()
     {
@@ -137,12 +170,20 @@ public sealed class PeriodicExportingMetricReaderHelperTests : IDisposable
         Assert.Equal("OTEL_METRIC_EXPORT_TIMEOUT", PeriodicExportingMetricReaderOptions.OTelMetricExportTimeoutEnvVarKey);
     }
 
+    /// <summary>
+    /// Clears environment variables set by tests to avoid bleed-over.
+    /// </summary>
     private static void ClearEnvVars()
     {
         Environment.SetEnvironmentVariable(PeriodicExportingMetricReaderOptions.OTelMetricExportIntervalEnvVarKey, null);
         Environment.SetEnvironmentVariable(PeriodicExportingMetricReaderOptions.OTelMetricExportTimeoutEnvVarKey, null);
     }
 
+    /// <summary>
+    /// Creates a metric reader configured with test-specific options and exporter.
+    /// </summary>
+    /// <param name="options">Optional metric reader options to supply.</param>
+    /// <returns>A configured <see cref="PeriodicExportingMetricReader"/> instance.</returns>
     private static PeriodicExportingMetricReader CreatePeriodicExportingMetricReader(
         MetricReaderOptions? options = null)
     {

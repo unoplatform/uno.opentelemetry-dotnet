@@ -16,6 +16,20 @@
     <SolutionProjects Remove="@(TestProjects)" />
   </ItemGroup>
 
+  <!-- Uno fork: Exclude docs/examples that reference OpenTelemetry.Instrumentation.* packages
+       which pull in conflicting versions of OpenTelemetry from NuGet -->
+  <ItemGroup>
+    <SolutionProjects Remove="$(RepoRoot)\docs\**\*.csproj" />
+    <SolutionProjects Remove="$(RepoRoot)\examples\**\*.csproj" />
+    <!-- Test projects that reference instrumentation packages from NuGet cause assembly conflicts -->
+    <SolutionProjects Remove="$(RepoRoot)\test\OpenTelemetry.Tests.Stress*\**\*.csproj" />
+    <SolutionProjects Remove="$(RepoRoot)\test\OpenTelemetry.Exporter.Zipkin.Tests\**\*.csproj" />
+    <SolutionProjects Remove="$(RepoRoot)\test\OpenTelemetry.Instrumentation.W3cTraceContext.Tests\**\*.csproj" />
+    <TestProjects Remove="$(RepoRoot)\test\OpenTelemetry.Tests.Stress*\**\*.csproj" />
+    <TestProjects Remove="$(RepoRoot)\test\OpenTelemetry.Exporter.Zipkin.Tests\**\*.csproj" />
+    <TestProjects Remove="$(RepoRoot)\test\OpenTelemetry.Instrumentation.W3cTraceContext.Tests\**\*.csproj" />
+  </ItemGroup>
+
   <Target Name="Build">
     <MSBuild Projects="@(SolutionProjects)" Targets="Build" ContinueOnError="ErrorAndStop" />
   </Target>
