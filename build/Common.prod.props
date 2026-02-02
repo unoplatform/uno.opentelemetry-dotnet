@@ -14,6 +14,12 @@
     -->
     <ExposeExperimentalFeatures Condition="'$(ExposeExperimentalFeatures)' == ''">false</ExposeExperimentalFeatures>
     <EnablePackageValidation Condition="'$(EnablePackageValidation)' == ''">false</EnablePackageValidation>
+    <!--
+        Disable package baseline validation for this Uno fork since there are no uno.OpenTelemetry.*
+        baseline packages published on nuget.org yet. The CI workflow enables EnablePackageValidation
+        but baseline validation requires existing packages to compare against.
+    -->
+    <DisablePackageBaselineValidation>true</DisablePackageBaselineValidation>
   </PropertyGroup>
 
   <PropertyGroup Label="PackageProperties">
