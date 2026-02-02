@@ -92,6 +92,20 @@
       Text="**AssemblyVersionDebug** TargetFramework: $(TargetFramework), MinVerVersion: $(MinVerVersion), BuildNumber: $(BuildNumber), FileVersion: $(FileVersion), ExposeExperimentalFeatures: $(ExposeExperimentalFeatures)" />
   </Target>
 
+  <Target Name="FixAssemblyVersionForCompatibility" AfterTargets="MinVer" Condition="'$(MinVerVersion)' != ''">
+    <!--
+        Set a fixed AssemblyVersion of 1.0.0.0 to maintain compatibility with
+        external NuGet packages that depend on OpenTelemetry assemblies.
+        This prevents assembly version conflicts when mixing local project
+        references with external package references (e.g. OpenTelemetry.Instrumentation.Http).
+        MinVer sets AssemblyVersion to Major.0.0.0 which causes conflicts when
+        the calculated version starts from 0.
+    -->
+    <PropertyGroup>
+      <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    </PropertyGroup>
+  </Target>
+
   <Target Name="EnsurePackageValidationBaselineVersion"
           BeforeTargets="RunPackageValidation"
           Condition="'$(DisablePackageBaselineValidation)' != 'true' AND '$(PackageValidationBaselineVersion)' == '' AND '$(MinVerTagPrefix)' != 'coreunstable-'">
