@@ -1,7 +1,25 @@
-*.sh eol=lf
+# Force LF line endings for files checked by sanitycheck.py
+* text=auto eol=lf
+
+# Windows batch files require CRLF
+*.cmd text eol=crlf
+*.bat text eol=crlf
+
+# Shell scripts require LF
+*.sh text eol=lf
 
 # Verify settings
 *.verified.txt text eol=lf working-tree-encoding=UTF-8
 *.verified.xml text eol=lf working-tree-encoding=UTF-8
 *.verified.json text eol=lf working-tree-encoding=UTF-8
 *.verified.bin binary
+
+# Binary files
+*.png binary
+*.ico binary
+*.gif binary
+*.jpg binary
+*.jpeg binary
+*.dll binary
+*.exe binary
+*.snk binary
