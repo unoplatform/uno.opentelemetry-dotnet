@@ -39,13 +39,9 @@
     <TargetFrameworksForAspNetCoreTests>net10.0;net9.0;net8.0</TargetFrameworksForAspNetCoreTests>
     <TargetFrameworksForAotCompatibilityTests>net10.0;net9.0;net8.0</TargetFrameworksForAotCompatibilityTests>
     <TargetFrameworksForDocs>net10.0;net9.0;net8.0</TargetFrameworksForDocs>
-    <TargetFrameworksForDocs Condition="$(OS) == 'Windows_NT' And '$(UsingMicrosoftNETSdkWeb)' != 'True'">
-      $(TargetFrameworksForDocs);$(NetFrameworkSupportedVersions)
-    </TargetFrameworksForDocs>
+    <TargetFrameworksForDocs Condition="$(OS) == 'Windows_NT' And '$(UsingMicrosoftNETSdkWeb)' != 'True'">$(TargetFrameworksForDocs);$(NetFrameworkSupportedVersions)</TargetFrameworksForDocs>
     <TargetFrameworksForTests>net10.0;net9.0;net8.0</TargetFrameworksForTests>
-    <TargetFrameworksForTests Condition="$(OS) == 'Windows_NT'">
-      $(TargetFrameworksForTests);$(NetFrameworkMinimumSupportedVersion)
-    </TargetFrameworksForTests>
+    <TargetFrameworksForTests Condition="$(OS) == 'Windows_NT'">$(TargetFrameworksForTests);$(NetFrameworkMinimumSupportedVersion)</TargetFrameworksForTests>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Debug'">
