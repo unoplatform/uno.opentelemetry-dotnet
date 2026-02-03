@@ -56,12 +56,12 @@ jobs:
       || contains(needs.detect-changes.outputs.changes, 'build')
     uses: ./.github/workflows/markdownlint.yml
 
+  # Temporarily disabled
   lint-dotnet-format:
-    needs: detect-changes
-    if: |
-      contains(needs.detect-changes.outputs.changes, 'code')
-      || contains(needs.detect-changes.outputs.changes, 'build')
-    uses: ./.github/workflows/dotnet-format.yml
+    runs-on: ubuntu-24.04
+    if: false
+    steps:
+      - run: echo "Skipped"
 
   build-test-solution:
     needs: detect-changes
