@@ -16,8 +16,8 @@
     <SolutionProjects Remove="@(TestProjects)" />
   </ItemGroup>
 
-  <!-- Uno fork: Exclude docs/examples that reference OpenTelemetry.Instrumentation.* packages
-       which pull in conflicting versions of OpenTelemetry from NuGet -->
+  <!-- Uno fork: Exclude docs/examples that reference OpenTelemetry.Instrumentation.* packages -->
+  <!-- which pull in conflicting versions of OpenTelemetry from NuGet -->
   <ItemGroup>
     <SolutionProjects Remove="$(RepoRoot)\docs\**\*.csproj" />
     <SolutionProjects Remove="$(RepoRoot)\examples\**\*.csproj" />
